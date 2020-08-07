@@ -1,0 +1,117 @@
+Example 2 *****************************************************************************************************
+
+[[1, 2], [3, 4]].map(arr => console.log(arr[0]));
+
+Action        Performed On      Side Effect     Return Value          Return Value Used?
+____________________________________________________________________________________
+Method call   The outer array   None            Array                 None   
+(.map)                                          [undefined, undefined]
+
+Callback      Each sub-array    None            undefined             Yes, by map method
+
+Method        The first element Prints first    undefined             Yes, by callback
+(console.log) of each sub-array element in each
+                                sub-array as 
+                                string
+                                
+Element accessThe first element None            First element of curr Yes, by console.log()
+              of each sub-array                 sub-array
+
+
+
+Example 3 *****************************************************************************************************
+
+  [[1, 2], [3, 4]].map(arr => {
+    console.log(arr[0]);
+    return arr[0];
+  });
+
+Action        Performed On      Side Effect     Return Value      Return Value Used?
+____________________________________________________________________________________
+Method call   Outer array       None            Array             No
+(.map)
+
+Callback      Each sub-array    None            Element at idx of Yes, by map method
+execution                                       current array
+
+Method call   Element at idx 0  Prints elem at  Undefined         No
+(console.log) of sub-array      idx 0
+
+Element       Each sub-array    None            Element at idx 0  Yes, by console.log func
+reference                                       of current array
+
+Element       Each sub-array    None            Element at idx 0  Yes, explicity returned by callback
+reference                                       of current array
+
+
+
+Example 4 *****************************************************************************************************
+
+let myArr = [[18, 7], [3, 12]].forEach(arr => {
+  return arr.map(num => {
+    if (num > 5) {
+      return console.log(num);
+    }
+  });
+});
+
+Action        Performed On      Side Effect     Return Value      Return Value Used?
+_____________________________________________________________________________________
+Variable      N/A               None            undefined         No
+Declaration &
+assignment       
+
+Method call Outer array         None            undefined         Yes, to assign myArr
+(forEach)                                       
+
+Callback    Each sub-array      None            [undefined        No
+execution 1                                      undefined]
+
+Method call Each sub-array      None            [undefined,       Yes, explicity returned by the first callback
+(map)                                           undefined]     
+
+Callback    Each sub-array      None            undefined         Yes, used to transform the array
+exection 2  element
+
+Comparison  Each sub-array      None            boolean           Yes, evaluated by 'if'
+            element
+
+Method call Sub-array element   Prints sub-     undefined         Yes, used to determine return value of second callback
+(console.log)                   array element
+                                as string
+
+-------------
+Output: 18, 7, 12
+Return value: [undefined, undefined]
+
+
+
+Example 5 *****************************************************************************************************
+
+[[1, 2], [3, 4]].map(arr => {
+  return arr.map(num => num * 2);
+});
+
+Action        Performed On      Side Effect     Return Value      Return Value Used?
+_____________________________________________________________________________________
+Method call   Outer array       None            Array             No
+(.map)
+
+Callback,     Each sub-array    None            Array             Yes, to previous method call to transform array
+outer
+
+Method call   Each sub-array    None            Array             Yes, to outer callback to transform array
+(.map)        
+
+Callback,     Each sub-array    None            Value             Yes, to previous method call to transform array
+inner
+
+num * 2       Each sub-array    None            Element * 2       Yes, by map function to transform array
+              element
+
+--------
+Return value: [[2, 4], [6, 8]]
+
+
+
+*Note to self; make corrections to previous example

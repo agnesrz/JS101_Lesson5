@@ -1,0 +1,7 @@
+Lesson 5, Assignment 4, Example: I don't understand why forEach returns undefined
+                                 and not [undefined, undefined]
+    Update: I think I understand; here's the answer from the book:
+
+    When determining the return values, it's important to understand how the method used in the example works.
+    In this case, we're using forEach on the outside, which ignores the return value of the callback.
+    Thus, we can see that the value of myArr is undefined.
