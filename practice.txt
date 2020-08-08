@@ -98,20 +98,53 @@ Method call   Outer array       None            Array             No
 (.map)
 
 Callback,     Each sub-array    None            Array             Yes, to previous method call to transform array
-outer
+outer                                           (sub-array)
 
 Method call   Each sub-array    None            Array             Yes, to outer callback to transform array
-(.map)        
+(.map)                                          (sub-array)        
 
 Callback,     Each sub-array    None            Value             Yes, to previous method call to transform array
 inner
 
-num * 2       Each sub-array    None            Element * 2       Yes, by map function to transform array
-              element
+Expression    N/A               None            Element * 2       Yes, returned by inner callback
+(num * 2)     
 
 --------
 Return value: [[2, 4], [6, 8]]
 
 
+Example 6 *****************************************************************************************************
 
-*Note to self; make corrections to previous example
+[[1, 2], [3, 4]].map(arr => {
+  return arr.map(num => num * 2);
+});
+
+Action        Performed On      Side Effect     Return Value      Return Value Used?
+_____________________________________________________________________________________
+
+
+
+Example 8 *****************************************************************************************************
+
+[[[1], [2], [3], [4]], [['a'], ['b'], ['c']]].map(element1 => {       // element 1 = [[1], [2], [3], [4]]   returns [undefined]
+  return element1.forEach(element2 => {                               // element 2 = [1]                    returns undefined
+    return element2.filter(element3 => {                              // element 3 = 1                      returns [1]
+      return element3.length > 0;                                                                           returns true
+    });
+  });
+});
+
+
+Example 9 *****************************************************************************************************
+
+[[[1, 2], [3, 4]], [5, 6]].map(arr => {               // arr = [[1, 2], [3, 4]]     
+  return arr.map(elem => {                            // elem = [1, 2]       
+    if (typeof elem === 'number') { // it's a number  // false
+      return elem + 1;                                // 
+    } else {                  // it's an array
+      return elem.map(number => number + 1);          // number = 1                  
+  });
+});
+
+return [[[2, 3]], [4, 5]], [6, 7]]
+ACTUAL return value =>  [ [ [ 2, 3 ], [ 4, 5 ] ], [ 6, 7 ] ]
