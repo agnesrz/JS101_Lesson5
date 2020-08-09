@@ -203,3 +203,75 @@ for (let key in obj) {
 console.log(fruitVegArray);
 
 // Problem 15
+let arr = [
+  { a: [1, 2, 3] },
+  { b: [2, 4, 6], c: [3, 6], d: [4] },
+  { e: [8], f: [6, 10] },
+];
+
+let evenArr = arr.filter(obj => {
+  return Object.values(obj)                      
+               .every(array => array.every(element => element % 2 === 0));
+});
+
+console.log(evenArr);
+
+// Problem 16
+let arr = [['a', 1], ['b', 'two'], ['sea', {'c': 3}], ['D', ['a', 'b', 'c']]];
+
+function objFromNestedArray(array) {
+  let obj = {};
+  
+  array.forEach(subArray => {
+    let [key, value] = subArray;
+    
+    obj[key] = value;
+  });
+  
+  return obj;
+}
+
+console.log(arr);
+console.log(objFromNestedArray(arr));
+
+// Problem 17
+function createUUID() {
+  let UUIDArray = [];
+
+  for (let count = 0; count < 32; count += 1) {
+    let letter = randomTrueOrFalse();
+
+    if (letter) {
+      UUIDArray.push(selectLetter());
+    } else {
+      UUIDArray.push(getRandomInt(10));
+    }
+  }
+
+  return insertUUIDDashes(UUIDArray).join('');
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+function randomTrueOrFalse() {
+  return getRandomInt(2) === 1;
+}
+
+function selectLetter() {
+  let letters = ['a', 'b', 'c', 'd', 'e', 'f'];
+  return letters[getRandomInt(6)];
+}
+
+function insertUUIDDashes(UUIDArray) {
+  let dashInsertIndexes = [7, 11, 15, 19];
+
+  dashInsertIndexes.forEach(index => {
+    UUIDArray[index] += '-';
+  });
+
+  return UUIDArray;
+}
+
+console.log(createUUID());
